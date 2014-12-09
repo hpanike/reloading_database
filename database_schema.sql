@@ -24,35 +24,35 @@ name VARCHAR(255),
 manufacture VARCHAR(255),
 primer_size CHAR(4),
 quanity INT,
-cost FLOAT,
+cost_per_primer FLOAT,
 PRIMARY KEY (primer_id)
 );
 
-CREATE TABLE PocketCleaner (
-pcleaner_id INT AUTO_INCREMENT NOT NULL,
+CREATE TABLE Pocket_Cleaner (
+pocket_cleaner_id INT AUTO_INCREMENT NOT NULL,
 manufacture VARCHAR(255),
-pcleaner_size CHAR(4),
-pcleaner_type VARCHAR(255),
-PRIMARY KEY (pcleaner_id)
+pocket_cleaner_size CHAR(4),
+pocket_cleaner_type VARCHAR(255),
+PRIMARY KEY (pocket_cleaner_id)
 );
 
-CREATE TABLE UltrasonicCleaner (
-ucleaner_id INT AUTO_INCREMENT NOT NULL,
+CREATE TABLE Ultrasonic_Cleaner (
+ultrasonic_cleaner_id INT AUTO_INCREMENT NOT NULL,
 manufacture VARCHAR(255),
-ucleaner_size VARCHAR(255),
-ucleaner_type CHAR(4),
-PRIMARY KEY (ucleaner_id)
+ultrasonic_cleaner_size VARCHAR(255),
+ultrasonic_cleaner_type CHAR(4),
+PRIMARY KEY (ultrasonic_cleaner_id)
 );
 
 CREATE TABLE Bullet (
 bullet_id INT AUTO_INCREMENT NOT NULL,
-caliber FLOAT,
 bullet_name VARCHAR(255),
+caliber FLOAT,
 bullet_type VARCHAR(255),
 manufacture VARCHAR(255),
 grain INT,
 ballistic_coefficient FLOAT,
-cost FLOAT,
+cost_per_bullet FLOAT,
 amount INT,
 material VARCHAR(255),
 PRIMARY KEY (bullet_id)
@@ -60,36 +60,36 @@ PRIMARY KEY (bullet_id)
 
 CREATE TABLE Casing (
 casing_id INT AUTO_INCREMENT NOT NULL,
+casing_name VARCHAR(255),
 caliber FLOAT,
 wall_thickness FLOAT,
 use_expectancy INT,
-casing_name VARCHAR(255),
 amount INT,
-cost FLOAT,
+cost_per_casing FLOAT,
 pocket_size CHAR(4),
 PRIMARY KEY (casing_id)
 );
 
-CREATE TABLE HandPrimer (
+CREATE TABLE Hand_Primer (
 manufacture VARCHAR(255) NOT NULL,
 PRIMARY KEY (manufacture)
 );
 
-CREATE TABLE CasingTrimmer (
-ctrimmer_id INT AUTO_INCREMENT NOT NULL,
-ctrimmer_type CHAR(4),
-PRIMARY KEY (ctrimmer_id)
+CREATE TABLE Casing_Trimmer (
+casing_trimmer_id INT AUTO_INCREMENT NOT NULL,
+casing_trimmer_type CHAR(4),
+PRIMARY KEY (casing_trimmer_id)
 );
 
-CREATE TABLE CleaningSolution (
+CREATE TABLE Cleaning_Solution (
 solution_id INT AUTO_INCREMENT NOT NULL,
 manufacture VARCHAR(255),
 formula VARCHAR(255),
 cost FLOAT,
 amount FLOAT,
-ucleaner INT,
+ultrasonic_cleaner INT,
 PRIMARY KEY (solution_id),
-FOREIGN KEY (ucleaner) REFERENCES UltrasonicCleaner(ucleaner_id)
+FOREIGN KEY (ultrasonic_cleaner) REFERENCES Ultrasonic_Cleaner(ultrasonic_cleaner_id)
 );
 
 CREATE TABLE Powder (
@@ -97,8 +97,8 @@ powder_id INT AUTO_INCREMENT NOT NULL,
 name VARCHAR(255),
 powder_type VARCHAR(255),
 burn_rate VARCHAR(255),
-quantity INT,
-cost FLOAT,
+quantity_in_grains FLOAT,
+cost_per_grain FLOAT,
 PRIMARY KEY (powder_id)
 );
 
@@ -110,18 +110,18 @@ availability CHAR(4),
 PRIMARY KEY (name)
 );
 
-CREATE TABLE ShellHolder (
-sholder_id INT AUTO_INCREMENT NOT NULL,
+CREATE TABLE Shell_Holder (
+shell_holder_id INT AUTO_INCREMENT NOT NULL,
 manufacture VARCHAR(255),
 number INT,
-PRIMARY KEY (sholder_id)
+PRIMARY KEY (shell_holder_id)
 );
 
-CREATE TABLE PowderDispenser (
-pdispenser_id INT AUTO_INCREMENT NOT NULL,
+CREATE TABLE Powder_Dispenser (
+powder_dispenser_id INT AUTO_INCREMENT NOT NULL,
 manufacture VARCHAR(255),
 pdispenser_type VARCHAR(255),
-PRIMARY KEY (pdispenser_id)
+PRIMARY KEY (powder_dispenser_id)
 );
 
 CREATE TABLE Press (
@@ -144,24 +144,25 @@ PRIMARY KEY (die_id),
 FOREIGN KEY (press) REFERENCES Press(press_id)
 );
 
-CREATE TABLE WorkBench (
-wbench_id INT AUTO_INCREMENT NOT NULL,
+CREATE TABLE Work_Bench (
+work_bench_id INT AUTO_INCREMENT NOT NULL,
 name VARCHAR(255),
-wbench_type VARCHAR(255),
-wbench_size VARCHAR(255),
-PRIMARY KEY (wbench_id)
+work_bench_type VARCHAR(255),
+wwork_bench_size VARCHAR(255),
+PRIMARY KEY (work_bench_id)
 );
 
 CREATE TABLE Recipe (
 recipe_id INT AUTO_INCREMENT NOT NULL,
-powder_amount INT NOT NULL,
-cost FLOAT,
-amount_available INT,
-ballistic_data VARCHAR(255),
+recipe_name VARCHAR(255),
+bullet INT,
 powder INT,
+powder_amount_in_grains FLOAT,
 casing INT,
 primer INT,
-bullet INT,
+ballistic_data VARCHAR(255),
+cost_per_bullet FLOAT,
+amount_available INT,
 PRIMARY KEY (recipe_id),
 FOREIGN KEY (powder) REFERENCES Powder(powder_id),
 FOREIGN KEY (casing) REFERENCES Casing(casing_id),
