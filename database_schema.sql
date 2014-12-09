@@ -5,7 +5,7 @@ USE reloading;
 CREATE TABLE Handle (
 handle_id INT AUTO_INCREMENT NOT NULL,
 manufacture VARCHAR(255),
-thread VARCHAR(255)
+thread VARCHAR(255),
 PRIMARY KEY (handle_id) );
 
 CREATE TABLE Brush (
@@ -79,8 +79,8 @@ ctrimmer_type CHAR(4)
 
 CREATE TABLE CleaningSolution (
 solution_id INT AUTO_INCREMENT NOT NULL,
-manufacture VARCHAR(255);
-formula VARCHAR(255);
+manufacture VARCHAR(255),
+formula VARCHAR(255),
 cost FLOAT,
 amount FLOAT,
 PRIMARY KEY (solution_id),
@@ -141,7 +141,7 @@ FOREIGN KEY (thread) REFERENCES Press(thread)
 );
 
 CREATE TABLE WorkBench (
-wbench_id INT AUTO_INCREMENT NOT NULL;
+wbench_id INT AUTO_INCREMENT NOT NULL,
 name VARCHAR(255),
 wbench_type VARCHAR(255),
 wbench_size VARCHAR(255),
@@ -149,7 +149,7 @@ PRIMARY KEY (wbench_id)
 );
 
 CREATE TABLE Recipe (
-recipe_id INT AUTO_INCREMENT NOT NULL;
+recipe_id INT AUTO_INCREMENT NOT NULL,
 powder_amount INT NOT NULL,
 cost FLOAT,
 amount_available INT,
