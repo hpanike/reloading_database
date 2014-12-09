@@ -23,7 +23,7 @@ primer_id INT AUTO_INCREMENT NOT NULL,
 name VARCHAR(255),
 manufacture VARCHAR(255),
 primer_size CHAR(4),
-quanity INT,
+amount INT,
 cost_per_primer FLOAT,
 PRIMARY KEY (primer_id)
 );
@@ -97,7 +97,7 @@ powder_id INT AUTO_INCREMENT NOT NULL,
 name VARCHAR(255),
 powder_type VARCHAR(255),
 burn_rate VARCHAR(255),
-quantity_in_grains FLOAT,
+amount_in_grains FLOAT,
 cost_per_grain FLOAT,
 PRIMARY KEY (powder_id)
 );
