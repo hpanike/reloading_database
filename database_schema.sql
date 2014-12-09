@@ -5,7 +5,7 @@ USE reloading;
 CREATE TABLE Handle (
 handle_id INT AUTO_INCREMENT NOT NULL,
 manufacture VARCHAR(255),
-thread VARCHAR(255),
+thread VARCHAR(255) NOT NULL,
 PRIMARY KEY (handle_id) );
 
 CREATE TABLE Brush (
@@ -13,8 +13,9 @@ brush_id INT AUTO_INCREMENT NOT NULL,
 caliber FLOAT,
 thread VARCHAR(255),
 material VARCHAR(255),
+handle INT,
 PRIMARY KEY (brush_id),
-FOREIGN KEY (thread) REFERENCES Handle(thread)
+FOREIGN KEY (handle) REFERENCES Handle(handle_id)
 );
 
 CREATE TABLE Primer (
@@ -52,11 +53,12 @@ grain INT,
 ballistic_coefficient FLOAT,
 cost FLOAT,
 amount INT,
-material VARCHAR(255)
+material VARCHAR(255),
+PRIMARY KEY (bullet_id)
 );
 
-CREATE TABLE Case (
-case_id INT AUTO_INCREMENT NOT NULL,
+CREATE TABLE Casing (
+casing_id INT AUTO_INCREMENT NOT NULL,
 caliber FLOAT,
 wall_thickness FLOAT,
 use_expectancy INT,
@@ -64,7 +66,7 @@ manufacture VARCHAR(255),
 amount INT,
 cost FLOAT,
 pocket_size CHAR(4),
-PRIMARY KEY (case_id)
+PRIMARY KEY (casing_id)
 );
 
 CREATE TABLE HandPrimer (
@@ -72,9 +74,10 @@ manufacture VARCHAR(255) NOT NULL,
 PRIMARY KEY (manufacture)
 );
 
-CREATE TABLE CaseTrimmer (
+CREATE TABLE CasingTrimmer (
 ctrimmer_id INT AUTO_INCREMENT NOT NULL,
-ctrimmer_type CHAR(4)
+ctrimmer_type CHAR(4),
+PRIMARY KEY (ctrimmer_id)
 );
 
 CREATE TABLE CleaningSolution (
@@ -83,6 +86,7 @@ manufacture VARCHAR(255),
 formula VARCHAR(255),
 cost FLOAT,
 amount FLOAT,
+ucleaner INT,
 PRIMARY KEY (solution_id),
 FOREIGN KEY (ucleaner) REFERENCES UltrasonicCleaner(ucleaner_id)
 );
@@ -105,12 +109,11 @@ availability CHAR(4),
 PRIMARY KEY (name)
 );
 
-CREATE TABLE ShellHolder {
+CREATE TABLE ShellHolder (
 sholder_id INT AUTO_INCREMENT NOT NULL,
 manufacture VARCHAR(255),
-sholder_number INT,
-sholder_range VARCHAR(255),
-PRIMARY KEY sholder_id
+number INT,
+PRIMARY KEY (sholder_id)
 );
 
 CREATE TABLE PowderDispenser (
@@ -125,7 +128,6 @@ press_id INT AUTO_INCREMENT NOT NULL,
 manufacture VARCHAR(255),
 production_rate INT,
 press_type CHAR(4),
-production_rate INT,
 thread VARCHAR(255),
 PRIMARY KEY (press_id)
 );
@@ -136,8 +138,9 @@ grade CHAR(4),
 manufacture VARCHAR(255),
 die_type VARCHAR(255),
 caliber FLOAT,
+press INT,
 PRIMARY KEY (die_id),
-FOREIGN KEY (thread) REFERENCES Press(thread)
+FOREIGN KEY (press) REFERENCES Press(press_id)
 );
 
 CREATE TABLE WorkBench (
@@ -154,9 +157,13 @@ powder_amount INT NOT NULL,
 cost FLOAT,
 amount_available INT,
 ballistic_data VARCHAR(255),
+powder INT,
+casing INT,
+primer INT,
+bullet INT,
 PRIMARY KEY (recipe_id),
-FOREIGN KEY (powder_id) REFERENCES Powder(powder_id),
-FOREIGN KEY (case_id) REFERENCES Case(case_id),
-FOREIGN KEY (primer_id) REFERENCES Primer(primer_id),
-FOREIGN KEY (bullet_id) REFERENCES Bullet(bullet.id)
+FOREIGN KEY (powder) REFERENCES Powder(powder_id),
+FOREIGN KEY (casing) REFERENCES Casing(casing_id),
+FOREIGN KEY (primer) REFERENCES Primer(primer_id),
+FOREIGN KEY (bullet) REFERENCES Bullet(bullet_id)
 );
